@@ -10,8 +10,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import pe.pedroavila.adapter.common.BusinessException;
 import pe.pedroavila.adapter.mapper.GymMapper;
+import pe.pedroavila.application.dto.UpdateGymCommand;
 import pe.pedroavila.application.dto.UpdateGymResponse;
-import pe.pedroavila.application.dto.UpdateGymWithId;
 import pe.pedroavila.application.port.in.UpdateGymUseCase;
 import pe.pedroavila.application.port.out.GymRepositoryPort;
 import pe.pedroavila.domain.entity.Gym;
@@ -31,21 +31,19 @@ public class UpdateGymUseCaseImpl implements UpdateGymUseCase {
     }
 
     @Override
-    public UpdateGymResponse update(UpdateGymWithId dto) {
+    public UpdateGymResponse update(Long id, UpdateGymCommand dto) {
 
-        var gymDto = dto.command();
+        var gym = gymRepositoryPort.single(id)
+                .orElseThrow(() -> new BusinessException("Gym not found: " + id, HttpStatus.NOT_FOUND));
 
-        var gym = gymRepositoryPort.single(dto.id())
-                .orElseThrow(() -> new BusinessException("Gym not found: " + dto.id(), HttpStatus.NOT_FOUND));
-
-        var gymUpdate = new Gym(gym.id(), gym.code(), gymDto.name(),
-                gymDto.address(), gymDto.phone(),
+        var gymUpdate = new Gym(gym.id(), gym.code(), dto.name(),
+                dto.address(), dto.phone(),
                 gym.createdAt());
 
-        Map<String, Object> fields = objectMapper.convertValue(gymDto, new TypeReference<Map<String, Object>>() {
+        Map<String, Object> fields = objectMapper.convertValue(dto, new TypeReference<Map<String, Object>>() {
         });
 
-        this.gymRepositoryPort.update(Gym.class, dto.id(), fields);
+        this.gymRepositoryPort.update(Gym.class, id, fields);
 
         return mapper.toUpdateDto(gymUpdate);
     }

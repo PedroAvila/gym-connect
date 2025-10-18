@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 
 import pe.pedroavila.adapter.common.BusinessException;
 import pe.pedroavila.adapter.mapper.GymMapper;
-import pe.pedroavila.application.dto.GetByIdGym;
 import pe.pedroavila.application.dto.GetByIdGymResponse;
 import pe.pedroavila.application.port.in.GetByIdGymUseCase;
 import pe.pedroavila.application.port.out.GymRepositoryPort;
@@ -22,10 +21,10 @@ public class GetByIdGymUseCaseImpl implements GetByIdGymUseCase {
     }
 
     @Override
-    public GetByIdGymResponse single(GetByIdGym dto) {
+    public GetByIdGymResponse single(Long id) {
 
-        var gym = gymRepositoryPort.single(dto.id())
-                .orElseThrow(() -> new BusinessException("Gym not found: " + dto.id(), HttpStatus.NOT_FOUND));
+        var gym = gymRepositoryPort.single(id)
+                .orElseThrow(() -> new BusinessException("Gym not found: " + id, HttpStatus.NOT_FOUND));
 
         return mapper.toSingleDto(gym);
     }

@@ -2,7 +2,7 @@ package pe.pedroavila.domain.entity;
 
 import java.time.Instant;
 
-import pe.pedroavila.adapter.repository.converter.EnumUtils;
+import pe.pedroavila.adapter.common.EnumUtils;
 import pe.pedroavila.application.dto.CreateCustomer;
 import pe.pedroavila.domain.enums.GenderCustomer;
 import pe.pedroavila.domain.enums.StatusCustomer;

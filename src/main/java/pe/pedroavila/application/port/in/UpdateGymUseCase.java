@@ -1,9 +1,9 @@
 package pe.pedroavila.application.port.in;
 
+import pe.pedroavila.application.dto.UpdateGymCommand;
 import pe.pedroavila.application.dto.UpdateGymResponse;
-import pe.pedroavila.application.dto.UpdateGymWithId;
 
 public interface UpdateGymUseCase {
 
-    UpdateGymResponse update(UpdateGymWithId dto);
+    UpdateGymResponse update(Long id, UpdateGymCommand dto);
 }

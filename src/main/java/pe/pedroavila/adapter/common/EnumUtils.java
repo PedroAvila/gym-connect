@@ -1,4 +1,4 @@
-package pe.pedroavila.adapter.repository.converter;
+package pe.pedroavila.adapter.common;
 
 public class EnumUtils {
 

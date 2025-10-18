@@ -1,6 +1,6 @@
 package pe.pedroavila.domain.enums;
 
-import pe.pedroavila.adapter.repository.converter.IntEnum;
+import pe.pedroavila.adapter.common.IntEnum;
 
 public enum StatusCustomer implements IntEnum {
 

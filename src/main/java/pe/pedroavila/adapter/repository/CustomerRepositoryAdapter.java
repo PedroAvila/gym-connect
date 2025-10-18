@@ -6,8 +6,8 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
+import pe.pedroavila.adapter.common.EnumUtils;
 import pe.pedroavila.adapter.jpa.CustomerEntity;
-import pe.pedroavila.adapter.repository.converter.EnumUtils;
 import pe.pedroavila.application.port.out.CustomerRepositoryPort;
 import pe.pedroavila.domain.entity.Customer;
 import pe.pedroavila.domain.enums.GenderCustomer;

@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
 import pe.pedroavila.application.dto.CreateGym;
-import pe.pedroavila.application.dto.GetByIdGym;
 import pe.pedroavila.application.dto.UpdateGymCommand;
-import pe.pedroavila.application.dto.UpdateGymWithId;
 import pe.pedroavila.application.port.in.CreateGymUseCase;
 import pe.pedroavila.application.port.in.GetByIdGymUseCase;
 import pe.pedroavila.application.port.in.GetGymUseCase;
@@ -40,28 +38,22 @@ public class GymController {
 
     @GetMapping()
     public ResponseEntity<?> findAll() {
-        var result = this.getGymUseCase.getAll();
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        return new ResponseEntity<>(this.getGymUseCase.getAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> find(@PathVariable Long id) {
-        var dto = new GetByIdGym(id);
-        var result = this.getByIdGymUseCase.single(dto);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        return new ResponseEntity<>(this.getByIdGymUseCase.single(id), HttpStatus.OK);
     }
 
     @PostMapping()
     public ResponseEntity<?> create(@Valid @RequestBody CreateGym dto) {
-        var result = this.createGymUseCase.create(dto);
-        return new ResponseEntity<>(result, HttpStatus.CREATED);
+        return new ResponseEntity<>(this.createGymUseCase.create(dto), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable Long id, @Valid @RequestBody UpdateGymCommand dto) {
-        var command = new UpdateGymWithId(id, dto);
-        var result = updateGymUseCase.update(command);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        return new ResponseEntity<>(updateGymUseCase.update(id, dto), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
