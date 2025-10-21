@@ -1,4 +1,4 @@
-package pe.pedroavila.adapter.repository;
+package pe.pedroavila.application.port.out;
 
 import java.util.Map;
 import java.util.stream.Collectors;

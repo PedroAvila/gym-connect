@@ -7,25 +7,27 @@ import pe.pedroavila.adapter.common.BusinessException;
 import pe.pedroavila.adapter.mapper.CustomerMapper;
 import pe.pedroavila.application.dto.GetByIdCustomerResponse;
 import pe.pedroavila.application.port.in.GetByIdCustomerUseCase;
-import pe.pedroavila.application.port.out.CustomerRepositoryPort;
+import pe.pedroavila.application.port.out.CustomerRepository;
 
 @Service
 public class GetByIdCustomerUseCaseImpl implements GetByIdCustomerUseCase {
 
-    private final CustomerRepositoryPort customerRepositoryPort;
+    private final CustomerRepository customerRepository;
     private final CustomerMapper mapper;
 
-    public GetByIdCustomerUseCaseImpl(CustomerRepositoryPort customerRepositoryPort, CustomerMapper mapper) {
-        this.customerRepositoryPort = customerRepositoryPort;
+    public GetByIdCustomerUseCaseImpl(CustomerRepository customerRepository, CustomerMapper mapper) {
+        this.customerRepository = customerRepository;
         this.mapper = mapper;
     }
 
     @Override
     public GetByIdCustomerResponse single(Long id) {
 
-        var customer = this.customerRepositoryPort.single(id)
-                .orElseThrow(() -> new BusinessException("Customer not found: " + id, HttpStatus.NOT_FOUND));
+        var entity = this.customerRepository.findById(id)
+                .orElseThrow(() -> new BusinessException("Customer not found: " + id,
+                        HttpStatus.NOT_FOUND));
 
+        var customer = this.mapper.toDomain(entity);
         return this.mapper.toSingleDto(customer);
     }
 }

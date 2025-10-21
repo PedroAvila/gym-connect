@@ -6,6 +6,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 import pe.pedroavila.adapter.common.DateMapperHelper;
+import pe.pedroavila.adapter.jpa.CustomerEntity;
 import pe.pedroavila.application.dto.CreateCustomer;
 import pe.pedroavila.application.dto.CreateCustomerResponse;
 import pe.pedroavila.application.dto.GetByIdCustomerResponse;
@@ -22,11 +23,23 @@ public interface CustomerMapper {
 
     @Mapping(target = "gender", source = "gender.value")
     @Mapping(target = "status", source = "status.value")
-    CreateCustomerResponse toCreateDto(Customer customer);
+    CustomerEntity toEntity(Customer customer);
+
+    Customer toDomain(CustomerEntity entity);
+
+    // @Mapping(target = "gender", source = "gender.value")
+    // @Mapping(target = "status", source = "status.value")
+    // CreateCustomerResponse toCreateDto(Customer customer);
+
+    // @Mapping(target = "gender", source = "gender.value")
+    // @Mapping(target = "status", source = "status.value")
+    CreateCustomerResponse toCreateDto(CustomerEntity entity);
 
     @Mapping(target = "gender", source = "gender.value")
     @Mapping(target = "status", source = "status.value")
     GetByIdCustomerResponse toSingleDto(Customer customer);
+
+    List<Customer> toDomainList(List<CustomerEntity> entities);
 
     @Mapping(target = "gender", source = "gender.value")
     @Mapping(target = "status", source = "status.value")
@@ -34,7 +47,9 @@ public interface CustomerMapper {
 
     List<GetCustomerResponse> toDtoList(List<Customer> customers);
 
-    @Mapping(target = "gender", source = "gender.value")
-    @Mapping(target = "status", source = "status.value")
-    UpdateCustomerResponse toUpdateDto(Customer customer);
+    // @Mapping(target = "gender", source = "gender.value")
+    // @Mapping(target = "status", source = "status.value")
+    // UpdateCustomerResponse toUpdateDto(Customer customer);
+
+    UpdateCustomerResponse toUpdateDto(CustomerEntity entity);
 }

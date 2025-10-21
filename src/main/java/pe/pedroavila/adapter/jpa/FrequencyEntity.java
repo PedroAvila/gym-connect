@@ -2,6 +2,8 @@ package pe.pedroavila.adapter.jpa;
 
 import java.io.Serializable;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,6 +18,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @Table(name = "frequencys")
+@DynamicUpdate(true)
 public class FrequencyEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

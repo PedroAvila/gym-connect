@@ -1,7 +1,9 @@
 package pe.pedroavila.application.dto;
 
+import java.util.Optional;
+
 public record UpdateFrequencyCommand(
-        String name,
-        int duration) {
+                Optional<String> name,
+                Optional<Integer> duration) {
 
 }

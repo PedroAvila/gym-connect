@@ -6,6 +6,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 import pe.pedroavila.adapter.common.DateMapperHelper;
+import pe.pedroavila.adapter.jpa.FrequencyEntity;
 import pe.pedroavila.application.dto.CreateFrequency;
 import pe.pedroavila.application.dto.CreateFrequencyResponse;
 import pe.pedroavila.application.dto.GetByIdFrequencyResponse;
@@ -18,16 +19,25 @@ public interface FrequencyMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "code", source = "code")
+    @Mapping(target = "withUpdatedData", ignore = true)
     Frequency toDomain(CreateFrequency dto, int code);
 
-    CreateFrequencyResponse toCreateDto(Frequency frequency);
+    @Mapping(target = "withUpdatedData", ignore = true)
+    Frequency toDomain(FrequencyEntity entity);
+
+    FrequencyEntity toEntity(Frequency frequency);
+
+    // CreateFrequencyResponse toCreateDto(Frequency frequency);
+    CreateFrequencyResponse toCreateDto(FrequencyEntity entity);
 
     GetByIdFrequencyResponse toSingleDto(Frequency frequency);
 
     // GetFrequencyResponse toDto(Frequency frequency);
 
+    List<Frequency> toDomainList(List<FrequencyEntity> entities);
+
     List<GetFrequencyResponse> toDtoList(List<Frequency> frequencys);
 
-    UpdateFrequencyResponse toUpdateDto(Frequency frequency);
+    UpdateFrequencyResponse toUpdateDto(FrequencyEntity entity);
 
 }

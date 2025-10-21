@@ -1,19 +1,25 @@
 package pe.pedroavila.adapter.controller;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
 import pe.pedroavila.application.dto.CreateCustomer;
+import pe.pedroavila.application.dto.CreateCustomerResponse;
+import pe.pedroavila.application.dto.GetByIdCustomerResponse;
+import pe.pedroavila.application.dto.GetCustomerResponse;
 import pe.pedroavila.application.dto.UpdateCustomerCommand;
+import pe.pedroavila.application.dto.UpdateCustomerResponse;
 import pe.pedroavila.application.port.in.CreateCustomerUseCase;
 import pe.pedroavila.application.port.in.GetByIdCustomerUseCase;
 import pe.pedroavila.application.port.in.GetCustomerUseCase;
@@ -38,22 +44,23 @@ public class CustomerController {
     }
 
     @GetMapping()
-    public ResponseEntity<?> findAll() {
+    public ResponseEntity<List<GetCustomerResponse>> findAll() {
         return new ResponseEntity<>(this.getCustomerUseCase.getAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> find(@PathVariable Long id) {
+    public ResponseEntity<GetByIdCustomerResponse> find(@PathVariable Long id) {
         return new ResponseEntity<>(this.getByIdCustomerUseCase.single(id), HttpStatus.OK);
     }
 
     @PostMapping()
-    public ResponseEntity<?> create(@Valid @RequestBody CreateCustomer dto) {
+    public ResponseEntity<CreateCustomerResponse> create(@Valid @RequestBody CreateCustomer dto) {
         return new ResponseEntity<>(this.createCustomerUseCase.create(dto), HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable Long id, @Valid @RequestBody UpdateCustomerCommand dto) {
+    @PatchMapping("/{id}")
+    public ResponseEntity<UpdateCustomerResponse> update(@PathVariable Long id,
+            @Valid @RequestBody UpdateCustomerCommand dto) {
         return new ResponseEntity<>(this.updateCustomerUseCase.update(id, dto), HttpStatus.OK);
     }
 
