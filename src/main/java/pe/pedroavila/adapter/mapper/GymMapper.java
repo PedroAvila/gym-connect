@@ -26,10 +26,7 @@ public interface GymMapper {
 
     GymEntity toEntity(Gym gym);
 
-    // CreateGymResponse toCreateDto(Gym gym);
     CreateGymResponse toCreateDto(GymEntity entity);
-
-    // UpdateGymResponse toUpdateDto(Gym gym);
 
     UpdateGymResponse toUpdateDto(GymEntity entity);
 

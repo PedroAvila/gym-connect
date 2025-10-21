@@ -27,12 +27,9 @@ public interface FrequencyMapper {
 
     FrequencyEntity toEntity(Frequency frequency);
 
-    // CreateFrequencyResponse toCreateDto(Frequency frequency);
     CreateFrequencyResponse toCreateDto(FrequencyEntity entity);
 
     GetByIdFrequencyResponse toSingleDto(Frequency frequency);
-
-    // GetFrequencyResponse toDto(Frequency frequency);
 
     List<Frequency> toDomainList(List<FrequencyEntity> entities);
 

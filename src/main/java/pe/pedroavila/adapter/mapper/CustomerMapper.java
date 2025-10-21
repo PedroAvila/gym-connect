@@ -25,14 +25,9 @@ public interface CustomerMapper {
     @Mapping(target = "status", source = "status.value")
     CustomerEntity toEntity(Customer customer);
 
+    @Mapping(target = "withUpdatedData", ignore = true)
     Customer toDomain(CustomerEntity entity);
 
-    // @Mapping(target = "gender", source = "gender.value")
-    // @Mapping(target = "status", source = "status.value")
-    // CreateCustomerResponse toCreateDto(Customer customer);
-
-    // @Mapping(target = "gender", source = "gender.value")
-    // @Mapping(target = "status", source = "status.value")
     CreateCustomerResponse toCreateDto(CustomerEntity entity);
 
     @Mapping(target = "gender", source = "gender.value")
@@ -46,10 +41,6 @@ public interface CustomerMapper {
     GetCustomerResponse toDto(Customer customer);
 
     List<GetCustomerResponse> toDtoList(List<Customer> customers);
-
-    // @Mapping(target = "gender", source = "gender.value")
-    // @Mapping(target = "status", source = "status.value")
-    // UpdateCustomerResponse toUpdateDto(Customer customer);
 
     UpdateCustomerResponse toUpdateDto(CustomerEntity entity);
 }
