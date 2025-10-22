@@ -23,11 +23,10 @@ public class GetByIdCustomerUseCaseImpl implements GetByIdCustomerUseCase {
     @Override
     public GetByIdCustomerResponse single(Long id) {
 
-        var entity = this.customerRepository.findById(id)
+        var customer = this.customerRepository.findById(id)
                 .orElseThrow(() -> new BusinessException("Customer not found: " + id,
                         HttpStatus.NOT_FOUND));
 
-        var customer = this.mapper.toDomain(entity);
         return this.mapper.toSingleDto(customer);
     }
 }

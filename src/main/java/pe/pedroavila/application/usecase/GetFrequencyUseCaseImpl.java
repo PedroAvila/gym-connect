@@ -22,8 +22,7 @@ public class GetFrequencyUseCaseImpl implements GetFrequencyUseCase {
 
     @Override
     public List<GetFrequencyResponse> getAll() {
-        var entities = this.frequencyRepository.findAll();
-        var frequencys = this.mapper.toDomainList(entities);
+        var frequencys = this.frequencyRepository.findAll();
         return this.mapper.toDtoList(frequencys);
     }
 }

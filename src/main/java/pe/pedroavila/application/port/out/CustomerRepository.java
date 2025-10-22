@@ -3,9 +3,9 @@ package pe.pedroavila.application.port.out;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import pe.pedroavila.adapter.jpa.CustomerEntity;
+import pe.pedroavila.domain.entity.Customer;
 
-public interface CustomerRepository extends JpaRepository<CustomerEntity, Long> {
+public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
     boolean existsByName(String name);
 

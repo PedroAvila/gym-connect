@@ -1,64 +1,58 @@
 package pe.pedroavila.domain.entity;
 
+import java.io.Serializable;
 import java.time.Instant;
 
-import pe.pedroavila.adapter.common.EnumUtils;
-import pe.pedroavila.application.dto.CreateCustomer;
-import pe.pedroavila.application.dto.UpdateCustomerCommand;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicUpdate;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import pe.pedroavila.domain.enums.GenderCustomer;
+import pe.pedroavila.domain.enums.GenderCustomerConverter;
 import pe.pedroavila.domain.enums.StatusCustomer;
+import pe.pedroavila.domain.enums.StatusCustomerConverter;
 
-public record Customer(
-                Long id,
-                int code,
-                String name,
-                GenderCustomer gender,
-                String phone,
-                String email,
-                Integer age,
-                Instant createdAt,
-                String observations,
-                StatusCustomer status) {
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+@Entity
+@Table(name = "customers")
+@DynamicUpdate(true)
+public class Customer implements Serializable {
 
-        public Customer(CreateCustomer dto, int code) {
-                this(
-                                null,
-                                code,
-                                dto.name(),
-                                EnumUtils.fromInt(GenderCustomer.class, dto.gender()),
-                                dto.phone(),
-                                dto.email(),
-                                dto.age(),
-                                Instant.now(),
-                                dto.observations(),
-                                StatusCustomer.ENABLED);
-        }
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-        public Customer withUpdatedData(UpdateCustomerCommand dto) {
-                return new Customer(
-                                this.id,
-                                this.code,
+    private int code;
 
-                                // Si el nombre está presente, úsalo, si no, usa el original
-                                dto.name().orElse(this.name),
+    private String name;
 
-                                // Si el género está presente, mapea el enum, si no, usa el original
-                                dto.gender()
-                                                .map(g -> EnumUtils.fromInt(GenderCustomer.class, g))
-                                                .orElse(this.gender),
+    @Convert(converter = GenderCustomerConverter.class)
+    private GenderCustomer gender;
 
-                                dto.phone().orElse(this.phone),
-                                dto.email().orElse(this.email),
+    @Column(length = 10)
+    private String phone;
 
-                                // Atención: el campo 'age' en Customer es Integer, usa Optional.orElse
-                                dto.age().orElse(this.age),
+    private String email;
 
-                                this.createdAt,
-                                dto.observations().orElse(this.observations),
+    private Integer age;
 
-                                // Mapear Status
-                                dto.status()
-                                                .map(s -> EnumUtils.fromInt(StatusCustomer.class, s))
-                                                .orElse(this.status));
-        }
+    @Column(name = "created_at", nullable = false, updatable = false)
+    @CreationTimestamp
+    private Instant createdAt;
+
+    private String observations;
+
+    @Convert(converter = StatusCustomerConverter.class)
+    private StatusCustomer status = StatusCustomer.ENABLED;
 }

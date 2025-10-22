@@ -22,9 +22,7 @@ public class GetCustomerUseCaseImpl implements GetCustomerUseCase {
 
     @Override
     public List<GetCustomerResponse> getAll() {
-        var entities = this.customerRepository.findAll();
-        var customers = this.mapper.toDomainList(entities);
+        var customers = this.customerRepository.findAll();
         return this.mapper.toDtoList(customers);
     }
-
 }

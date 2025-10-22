@@ -22,11 +22,10 @@ public class GetByIdFrequencyUseCaseImpl implements GetByIdFrequencyUseCase {
 
     @Override
     public GetByIdFrequencyResponse single(Long id) {
-        var entity = this.frequencyRepository.findById(id)
+        var frequency = this.frequencyRepository.findById(id)
                 .orElseThrow(() -> new BusinessException("Frequency not found: " + id,
                         HttpStatus.NOT_FOUND));
 
-        var gym = this.mapper.toDomain(entity);
-        return this.mapper.toSingleDto(gym);
+        return this.mapper.toSingleDto(frequency);
     }
 }

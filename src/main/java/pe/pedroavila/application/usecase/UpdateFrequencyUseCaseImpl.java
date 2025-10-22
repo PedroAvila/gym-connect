@@ -24,14 +24,13 @@ public class UpdateFrequencyUseCaseImpl implements UpdateFrequencyUseCase {
     @Override
     public UpdateFrequencyResponse update(Long id, UpdateFrequencyCommand dto) {
 
-        var entity = this.frequencyRepository.findById(id)
+        var frequency = this.frequencyRepository.findById(id)
                 .orElseThrow(() -> new BusinessException("Frequency not found: " + id, HttpStatus.NOT_FOUND));
 
-        var frequency = this.mapper.toDomain(entity);
-        var updateDomain = frequency.withUpdatedData(dto);
-        var updateEntity = this.mapper.toEntity(updateDomain);
+        dto.name().ifPresent(frequency::setName);
+        dto.duration().ifPresent(frequency::setDuration);
 
-        var savedEntity = this.frequencyRepository.save(updateEntity);
+        var savedEntity = this.frequencyRepository.save(frequency);
         return this.mapper.toUpdateDto(savedEntity);
     }
 

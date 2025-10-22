@@ -3,9 +3,9 @@ package pe.pedroavila.application.port.out;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import pe.pedroavila.adapter.jpa.FrequencyEntity;
+import pe.pedroavila.domain.entity.Frequency;
 
-public interface FrequencyRepository extends JpaRepository<FrequencyEntity, Long> {
+public interface FrequencyRepository extends JpaRepository<Frequency, Long> {
 
     boolean existsByName(String name);
 

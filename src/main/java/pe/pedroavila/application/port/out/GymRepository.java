@@ -3,9 +3,9 @@ package pe.pedroavila.application.port.out;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import pe.pedroavila.adapter.jpa.GymEntity;
+import pe.pedroavila.domain.entity.Gym;
 
-public interface GymRepository extends JpaRepository<GymEntity, Long> {
+public interface GymRepository extends JpaRepository<Gym, Long> {
 
     boolean existsByName(String name);
 

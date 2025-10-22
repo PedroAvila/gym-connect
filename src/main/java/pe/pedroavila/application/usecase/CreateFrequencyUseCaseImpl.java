@@ -9,6 +9,7 @@ import pe.pedroavila.application.dto.CreateFrequency;
 import pe.pedroavila.application.dto.CreateFrequencyResponse;
 import pe.pedroavila.application.port.in.CreateFrequencyUseCase;
 import pe.pedroavila.application.port.out.FrequencyRepository;
+import pe.pedroavila.domain.entity.Frequency;
 
 @Service
 public class CreateFrequencyUseCaseImpl implements CreateFrequencyUseCase {
@@ -31,10 +32,12 @@ public class CreateFrequencyUseCaseImpl implements CreateFrequencyUseCase {
                     HttpStatus.CONFLICT);
         }
 
-        int code = this.frequencyRepository.generateCode();
-        var frequency = this.mapper.toDomain(dto, code);
-        var entity = this.mapper.toEntity(frequency);
-        var newFrequency = this.frequencyRepository.save(entity);
+        var frequency = new Frequency();
+        frequency.setCode(this.frequencyRepository.generateCode());
+        frequency.setName(dto.name());
+        frequency.setDuration(dto.duration());
+
+        var newFrequency = this.frequencyRepository.save(frequency);
         return this.mapper.toCreateDto(newFrequency);
     }
 }

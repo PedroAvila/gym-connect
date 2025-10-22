@@ -22,8 +22,7 @@ public class GetGymUseCaseImpl implements GetGymUseCase {
 
     @Override
     public List<GetGymResponse> getAll() {
-        var entities = this.gymRepository.findAll();
-        var gyms = this.mapper.toDomainList(entities);
+        var gyms = this.gymRepository.findAll();
         return this.mapper.toDtoList(gyms);
     }
 }

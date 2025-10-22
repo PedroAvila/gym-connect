@@ -1,24 +1,34 @@
 package pe.pedroavila.domain.entity;
 
-import pe.pedroavila.application.dto.UpdateFrequencyCommand;
+import java.io.Serializable;
 
-public record Frequency(
-                Long id,
-                int code,
-                String name,
-                int duration) {
+import org.hibernate.annotations.DynamicUpdate;
 
-        public Frequency withUpdatedData(UpdateFrequencyCommand dto) {
-                return new Frequency(
-                                this.id, // ID se mantiene
-                                this.code, // Código se mantiene (asumiendo que es inmutable)
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-                                // Si el nombre está presente en el DTO, úsalo; si no, usa el nombre actual.
-                                dto.name().orElse(this.name),
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+@Entity
+@Table(name = "frequencys")
+@DynamicUpdate(true)
+public class Frequency implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-                                // Si la duración está presente, úsala; si no, usa la duración actual.
-                                // Usamos orElseGet porque 'duration' es 'int' (primitivo) y su valor por
-                                // defecto es 'this.duration'.
-                                dto.duration().orElse(this.duration));
-        }
+    private Long id;
+
+    private int code;
+
+    private String name;
+
+    private int duration;
+
 }

@@ -24,15 +24,14 @@ public class UpdateGymUseCaseImpl implements UpdateGymUseCase {
     @Override
     public UpdateGymResponse update(Long id, UpdateGymCommand dto) {
 
-        var entity = this.gymRepository.findById(id)
+        var gym = this.gymRepository.findById(id)
                 .orElseThrow(() -> new BusinessException("Gym not found: " + id, HttpStatus.NOT_FOUND));
 
-        var gym = this.mapper.toDomain(entity);
-        var updateDomain = gym.withUpdatedData(dto);
-        var updateEntity = this.mapper.toEntity(updateDomain);
+        dto.name().ifPresent(gym::setName);
+        dto.address().ifPresent(gym::setAddress);
+        dto.phone().ifPresent(gym::setPhone);
 
-        var savedEntity = this.gymRepository.save(updateEntity);
+        var savedEntity = this.gymRepository.save(gym);
         return this.mapper.toUpdateDto(savedEntity);
     }
-
 }

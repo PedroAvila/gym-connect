@@ -9,6 +9,7 @@ import pe.pedroavila.application.dto.CreateGym;
 import pe.pedroavila.application.dto.CreateGymResponse;
 import pe.pedroavila.application.port.in.CreateGymUseCase;
 import pe.pedroavila.application.port.out.GymRepository;
+import pe.pedroavila.domain.entity.Gym;
 
 @Service
 public class CreateGymUseCaseImpl implements CreateGymUseCase {
@@ -29,12 +30,13 @@ public class CreateGymUseCaseImpl implements CreateGymUseCase {
             throw new BusinessException("There is already a gym with that name: " + dto.name(), HttpStatus.CONFLICT);
         }
 
-        int code = this.gymRepository.generateCode();
-        var domain = mapper.toDomain(dto, code);
-        var entity = mapper.toEntity(domain);
-        var newUser = this.gymRepository.save(entity);
+        var gym = new Gym();
+        gym.setCode(this.gymRepository.generateCode());
+        gym.setName(dto.name());
+        gym.setAddress(dto.address());
+        gym.setPhone(dto.phone());
+
+        var newUser = this.gymRepository.save(gym);
         return mapper.toCreateDto(newUser);
-
     }
-
 }

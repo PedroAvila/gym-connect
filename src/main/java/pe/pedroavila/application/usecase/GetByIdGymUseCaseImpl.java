@@ -23,11 +23,9 @@ public class GetByIdGymUseCaseImpl implements GetByIdGymUseCase {
     @Override
     public GetByIdGymResponse single(Long id) {
 
-        var entity = this.gymRepository.findById(id)
+        var gym = this.gymRepository.findById(id)
                 .orElseThrow(() -> new BusinessException("Gym not found: " + id,
                         HttpStatus.NOT_FOUND));
-
-        var gym = this.mapper.toDomain(entity);
 
         return mapper.toSingleDto(gym);
     }

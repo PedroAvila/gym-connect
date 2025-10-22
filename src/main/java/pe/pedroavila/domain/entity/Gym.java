@@ -1,38 +1,43 @@
 package pe.pedroavila.domain.entity;
 
+import java.io.Serializable;
 import java.time.Instant;
 
-import pe.pedroavila.application.dto.CreateGym;
-import pe.pedroavila.application.dto.UpdateGymCommand;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicUpdate;
 
-public record Gym(
-        Long id,
-        int code,
-        String name,
-        String address,
-        String phone,
-        Instant createdAt) {
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-    public Gym(CreateGym dto, int code) {
-        this(null, code, dto.name(), dto.address(), dto.phone(), Instant.now());
-    }
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+@Entity
+@Table(name = "gyms")
+@DynamicUpdate(true)
+public class Gym implements Serializable {
 
-    public Gym withUpdatedData(UpdateGymCommand dto) {
-        return new Gym(
-                this.id, // Se mantiene el ID original
-                this.code, // Se mantiene el código (inmutable)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-                // Si 'name' está presente, usa el nuevo; si no, usa el actual
-                dto.name().orElse(this.name),
+    private int code;
 
-                // Si 'address' está presente, usa el nuevo; si no, usa el actual
-                dto.address().orElse(this.address),
+    private String name;
 
-                // Si 'phone' está presente, usa el nuevo; si no, usa el actual
-                dto.phone().orElse(this.phone),
+    private String address;
 
-                this.createdAt // Se mantiene la fecha de creación (inmutable)
-        );
-    }
+    @Column(length = 10)
+    private String phone;
 
+    @Column(name = "created_at", nullable = false, updatable = false)
+    @CreationTimestamp
+    private Instant createdAt;
 }
