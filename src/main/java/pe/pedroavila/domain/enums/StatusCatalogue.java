@@ -1,0 +1,20 @@
+package pe.pedroavila.domain.enums;
+
+import pe.pedroavila.adapter.common.IntEnum;
+
+public enum StatusCatalogue implements IntEnum {
+
+    ENABLED(1),
+    DISABLED(0);
+
+    private final int value;
+
+    StatusCatalogue(int value) {
+        this.value = value;
+    }
+
+    @Override
+    public int getValue() {
+        return value;
+    }
+}

@@ -1,14 +1,19 @@
 package pe.pedroavila.domain.entity;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.hibernate.annotations.DynamicUpdate;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,4 +36,8 @@ public class Package implements Serializable {
 
     @Column(length = 500)
     private String description;
+
+    // Relación inversa: Uno (Package) a Muchos (Catalogue)
+    @OneToMany(mappedBy = "packageEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Catalogue> catalogues = new HashSet<>(); // Usamos Set para evitar duplicados
 }

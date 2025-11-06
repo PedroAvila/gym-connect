@@ -28,6 +28,8 @@ The API follows a **Hexagonal (Ports & Adapters)** architectural pattern, which 
 
 ![alt text](image-4.png)
 
+![alt text](image.png)
+
 ---
 
 ## 🗺️ Solution Design (Domain Model)
