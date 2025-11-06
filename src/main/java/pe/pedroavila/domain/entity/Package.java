@@ -2,6 +2,9 @@ package pe.pedroavila.domain.entity;
 
 import java.io.Serializable;
 
+import org.hibernate.annotations.DynamicUpdate;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,6 +19,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @Table(name = "packages")
+@DynamicUpdate(true)
 public class Package implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +29,6 @@ public class Package implements Serializable {
 
     private String name;
 
+    @Column(length = 500)
     private String description;
-
 }

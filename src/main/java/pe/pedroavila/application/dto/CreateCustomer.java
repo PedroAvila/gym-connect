@@ -8,15 +8,26 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 public record CreateCustomer(
-                @NotBlank(message = "El nombre no puede estar vacío") @Size(max = 255, message = "El nombre no debe exceder los 255 caracteres") String name,
+        @NotBlank(message = "El nombre no puede estar vacío") 
+        @Size(max = 255, message = "El nombre no debe exceder los 255 caracteres") 
+        String name,
 
-                @Min(value = 1, message = "El valor de género debe ser 1 (MALE) o 2 (FEMALE)") @Max(value = 2, message = "El valor de género debe ser 1 (MALE) o 2 (FEMALE)") int gender,
+        @Min(value = 1, message = "El valor de género debe ser 1 (MALE) o 2 (FEMALE)") 
+        @Max(value = 2, message = "El valor de género debe ser 1 (MALE) o 2 (FEMALE)") 
+        int gender,
 
-                @Size(max = 9, message = "El teléfono no debe exceder los 9 dígitos") @NotBlank(message = "La teléfono es requerido") @Pattern(regexp = "^$|^[0-9]{9}$", message = "El teléfono debe tener exactamente 9 dígitos numéricos o estar vacío") String phone,
+        @Size(max = 9, message = "El teléfono no debe exceder los 9 dígitos") 
+        @NotBlank(message = "La teléfono es requerido") 
+        @Pattern(regexp = "^$|^[0-9]{9}$", message = "El teléfono debe tener exactamente 9 dígitos numéricos o estar vacío") 
+        String phone,
 
-                @NotBlank(message = "El email no puede estar vacío") @Email(message = "El formato del email es inválido") @Size(max = 255, message = "El email no debe exceder los 255 caracteres") String email,
+        @NotBlank(message = "El email no puede estar vacío") 
+        @Email(message = "El formato del email es inválido") 
+        @Size(max = 255, message = "El email no debe exceder los 255 caracteres") 
+        String email,
 
-                @Min(value = 1, message = "La edad debe ser mayor a 0") int age,
+        @Min(value = 1, message = "La edad debe ser mayor a 0") 
+        int age,
 
-                String observations) {
+        String observations) {
 }
