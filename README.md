@@ -36,8 +36,6 @@ The domain model is based on the main entities: Client, Package, Frequency, Cata
 
 ![Solution Design](image-1.png)
 
-_(Replace `./docs/domain-model.png` with the actual path to your image)_
-
 ---
 
 ## 🚀 Getting Started
