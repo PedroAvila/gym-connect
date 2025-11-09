@@ -24,9 +24,9 @@ This RESTful API is designed to manage all key operations of a gym, enabling com
 
 The API follows a **Hexagonal (Ports & Adapters)** architectural pattern, which allows keeping the business core decoupled from external technologies (like databases or web frameworks).
 
-![Hexagonal Architecture](image-3.png)
+![Hexagonal Architecture](image-2.png)
 
-![alt text](image-4.png)
+![alt text](image-5.png)
 
 ![alt text](image.png)
 
